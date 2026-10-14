@@ -2,6 +2,10 @@ name: Build All Platforms (custom branches)
 
 permissions: write-all
 
+concurrency:
+  group: build-all-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: ['1.5.0-loginapi-fix', '1.5.0-hidecm']
