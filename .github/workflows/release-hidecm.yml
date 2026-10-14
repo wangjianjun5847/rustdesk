@@ -8,7 +8,7 @@ concurrency:
 
 on:
   push:
-    branches: ['1.5.0-hidecm']
+    branches: ['ci-hidecm']
 
 jobs:
   build-all:
