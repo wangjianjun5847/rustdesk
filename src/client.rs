@@ -5001,24 +5001,12 @@ pub enum Data {
 }
 
 pub async fn confirm_insecure_connection(
-    interface: &impl Interface,
-    receiver: &mut UnboundedReceiver<Data>,
+    _interface: &impl Interface,
+    _receiver: &mut UnboundedReceiver<Data>,
 ) -> bool {
-    interface.msgbox(
-        "insecure-connection-nocancel-hasclose",
-        "Insecure Connection",
-        "conn-e2ee-unavailable-tip",
-        "",
-    );
-    while let Some(data) = receiver.recv().await {
-        match data {
-            Data::ContinueInsecureConnection => return true,
-            Data::RejectInsecureConnection => return false,
-            Data::Close => return false,
-            _ => {}
-        }
-    }
-    false
+    // [patch] 自动接受"非安全连接"（自建/自定义 API 跳过端到端加密握手后必然走到这里），
+    // 不再弹出手动点"继续"的确认框，直接继续连接。
+    true
 }
 
 /// Keycode for key events.
