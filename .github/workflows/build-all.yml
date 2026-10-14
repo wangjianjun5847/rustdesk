@@ -1,0 +1,13 @@
+name: Build All Platforms (custom branches)
+
+on:
+  push:
+    branches: ['1.5.0-loginapi-fix', '1.5.0-hidecm']
+
+jobs:
+  build-all:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: "custom"
