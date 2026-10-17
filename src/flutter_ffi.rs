@@ -81,6 +81,21 @@ fn initialize(app_dir: &str, custom_client_config: &str) {
         // core_main's init_log does not work for flutter since it is only applied to its load_library in main.c
         hbb_common::init_log(false, "flutter_ffi");
     }
+    // 定制默认选项：仅在未设置时写入，避免覆盖用户手动改动。
+    // - 关闭“启动时检查软件更新”
+    // - 打开“允许远程修改配置”
+    {
+        let mut to_set: Vec<(&str, &str)> = Vec::new();
+        if Config::get_option("enable-check-update").is_empty() {
+            to_set.push(("enable-check-update", "N"));
+        }
+        if Config::get_option("allow-remote-config-modification").is_empty() {
+            to_set.push(("allow-remote-config-modification", "Y"));
+        }
+        for (k, v) in to_set {
+            Config::set_option(k, v);
+        }
+    }
 }
 
 #[inline]
