@@ -86,14 +86,14 @@ fn initialize(app_dir: &str, custom_client_config: &str) {
     // - 打开“允许远程修改配置”
     {
         let mut to_set: Vec<(&str, &str)> = Vec::new();
-        if Config::get_option("enable-check-update").is_empty() {
+        if config::Config::get_option("enable-check-update").is_empty() {
             to_set.push(("enable-check-update", "N"));
         }
-        if Config::get_option("allow-remote-config-modification").is_empty() {
+        if config::Config::get_option("allow-remote-config-modification").is_empty() {
             to_set.push(("allow-remote-config-modification", "Y"));
         }
         for (k, v) in to_set {
-            Config::set_option(k, v);
+            config::Config::set_option(k.into(), v.into());
         }
     }
 }
