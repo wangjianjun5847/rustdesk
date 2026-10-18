@@ -63,11 +63,19 @@ on:
         required: false
         default: ''
         type: string
-      upload_tag:
+      upload-tag:
         description: 'Unique release tag for this custom client'
         required: true
         default: 'custom-test-20261018'
         type: string
+      upload-artifact:
+        description: 'Upload build artifacts to the release'
+        type: boolean
+        default: true
+      publish-update-metadata:
+        description: 'Publish update metadata'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
