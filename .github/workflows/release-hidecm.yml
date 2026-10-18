@@ -1,0 +1,19 @@
+name: Build HideCM (standalone)
+
+permissions: write-all
+
+concurrency:
+  group: build-hidecm-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: ['1.5.0-hidecm']
+
+jobs:
+  build-all:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: "custom-hidecm"
